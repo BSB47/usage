@@ -203,6 +203,6 @@ if __name__ == "__main__":
     )
     buf = io.StringIO()
     fig.savefig(buf, format="svg", bbox_inches="tight")
-    _, mid_col, _ = st.columns([1, 5, 1])
+    _, mid_col, _ = st.columns([1, 6, 1])
     with mid_col:
         st.image(buf.getvalue(), use_container_width=True)
