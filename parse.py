@@ -182,7 +182,7 @@ if __name__ == "__main__":
     )
     gadi_raw, gadi_percent = parse_gadi_usage(f"data/{today}_gadi_usage.txt", today)
 
-    fig, axs = plt.subplots(1, 3, figsize=(10, 10.8), dpi=800)
+    fig, axs = plt.subplots(1, 3, figsize=(16, 10.8), dpi=800)
 
     plot(gadi_raw, gadi_percent, today, "Gadi", axs[0], threshold=threshold)
     plot(
