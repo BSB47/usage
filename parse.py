@@ -142,9 +142,9 @@ def plot(
     )
 
     ax.set_title(
-        f"{cluster} \n (as a percent of overall used,\n exceeding allocation by {percent_exceeding:.1f}%)"
+        f"$\\mathbf{{cluster}}$ \n (as a percent of overall used,\n exceeding allocation by $\\mathbf{{percent_exceeding:.1f}}%$)"
         if percent_exceeding > 0
-        else f"{cluster} \n (as a percent of overall used)"
+        else f"$\\mathbf{{cluster}}$ \n (as a percent of overall used)"
     )
 
 
