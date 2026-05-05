@@ -185,31 +185,34 @@ if __name__ == "__main__":
 
     fig, axs = plt.subplots(1, 3, figsize=(18, 6), dpi=200)
 
-    plot(gadi_raw, gadi_percent, today, "Gadi", axs[0], threshold=threshold)
-    plot(
-        setonix_raw_cpu,
-        setonix_percent_cpu,
-        today,
-        "Setonix CPU",
-        axs[1],
-        threshold=threshold,
-    )
-    plot(
-        setonix_raw_gpu,
-        setonix_percent_gpu,
-        today,
-        "Setonix GPU",
-        axs[2],
-        threshold=threshold,
-    )
-    buf = io.StringIO()
-    fig.savefig(buf, format="svg", bbox_inches="tight")
     _, mid_col, _ = st.columns([1, 6, 1])
-    with mid_col:
-        st.image(buf.getvalue(), use_container_width=True)
-        st.markdown(
-            "if you see index errors, it's likely because supercomputers are down for maintenance, otherwise contact me"
+    try:
+        plot(gadi_raw, gadi_percent, today, "Gadi", axs[0], threshold=threshold)
+        plot(
+            setonix_raw_cpu,
+            setonix_percent_cpu,
+            today,
+            "Setonix CPU",
+            axs[1],
+            threshold=threshold,
         )
-        st.markdown(
-            "Authors: Frank, Emily",
+        plot(
+            setonix_raw_gpu,
+            setonix_percent_gpu,
+            today,
+            "Setonix GPU",
+            axs[2],
+            threshold=threshold,
         )
+        buf = io.StringIO()
+        fig.savefig(buf, format="svg", bbox_inches="tight")
+        with mid_col:
+            st.image(buf.getvalue(), use_container_width=True)
+            st.markdown(
+                "Authors: Frank, Emily",
+            )
+    except IndexError as e:
+        with mid_col:
+            st.error(
+                f"Caught IndexError: {e}. Supercomputers are probably down for maintenance. Is it the first Tuesday of the month? If not, contact Frank"
+            )
