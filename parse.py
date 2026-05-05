@@ -155,7 +155,7 @@ if __name__ == "__main__":
     login_placeholder = st.empty()
     threshold = st.sidebar.slider("Hide slices below %", 0, 20, 5)
 
-    if 'auth' not in st.session_state:
+    if "auth" not in st.session_state:
         st.session_state.auth = False
 
     if not st.session_state.auth:
@@ -166,10 +166,10 @@ if __name__ == "__main__":
             if user_input == st.secrets["password"]:
                 st.session_state.auth = True
                 st.success("Access granted")
-                st.rerun() # Reruns the script to clear the login UI
+                st.rerun()  # Reruns the script to clear the login UI
             elif user_input:
                 st.error("Access denied")
-        st.stop() # Prevents anything below from running until auth is True
+        st.stop()  # Prevents anything below from running until auth is True
 
     # --- ACTUAL APP CONTENT ---
     # This only runs if st.session_state.auth is True
@@ -208,5 +208,8 @@ if __name__ == "__main__":
     with mid_col:
         st.image(buf.getvalue(), use_container_width=True)
         st.markdown(
-        "Authors: Frank, Emily",
+            "if you see index errors, it's likely because supercomputers are down for maintenance, otherwise contact me"
+        )
+        st.markdown(
+            "Authors: Frank, Emily",
         )
