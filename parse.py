@@ -131,7 +131,7 @@ def plot(
         data_raw["remaining"] = 0
     ax.pie(
         [v for v in data_percent.values()],
-        labels=[k if v > 5 else "" for k, v in data_percent.items()],
+        labels=[k if v > threshold else "" for k, v in data_percent.items()],
         autopct=lambda p: f"{p:.1f}%" if p > threshold else "",
     )
     ax.legend(
@@ -203,4 +203,6 @@ if __name__ == "__main__":
     )
     buf = io.StringIO()
     fig.savefig(buf, format="svg")
-    st.image(buf.getvalue(), use_container_width=True)
+    _, mid_col, _ = st.columns([1, 4, 1])
+    with mid_col:
+        st.image(buf.getvalue(), use_container_width=True)
