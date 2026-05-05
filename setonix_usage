@@ -1,6 +1,0 @@
-time: 2026-05-05
-allocation: {'pawsey0420': 1875000.0, 'pawsey0420-gpu': 1600000.0}
-used_cpu: {'pawsey0420': 3831058.0, '--ecameron': 0.0, '--yliu6': 2.0, '--rmunaweera': 12358.0, '--yhao': 260063.0, '--yfu': 1618.0, '--billy': 508369.0, '--aks19': 3048645.0}
-percentage_cpu: {'pawsey0420': 204.3, '--ecameron': 0.0, '--yliu6': 0.0, '--rmunaweera': 0.7, '--yhao': 13.9, '--yfu': 0.1, '--billy': 27.1, '--aks19': 162.6}
-used_gpu: {'pawsey0420-gpu': 1289196.0, '--rmunaweera': 460.0, '--yliu6': 393600.0, '--ecameron': 65609.0, '--aks19': 774727.0, '--yhao': 54498.0, '--psutton': 301.0}
-percentage_gpu: {'pawsey0420-gpu': 80.6, '--rmunaweera': 0.0, '--yliu6': 24.6, '--ecameron': 4.1, '--aks19': 48.4, '--yhao': 3.4, '--psutton': 0.0}
