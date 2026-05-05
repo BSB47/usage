@@ -154,7 +154,10 @@ if __name__ == "__main__":
     login_placeholder = st.empty()
     threshold = st.sidebar.slider("Hide slices below %", 0, 20, 5)
 
-    user_input = st.text_input("Enter Password", type="password", width=300)
+    col1, col2, col3 = st.columns([1, 2, 1])
+
+    with col2:
+        user_input = st.text_input("Enter Password", type="password", width=300)
     if user_input == st.secrets["password"]:
         st.success("Access granted")
         today = datetime.now().strftime("%Y-%m-%d")
