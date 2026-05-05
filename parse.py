@@ -164,6 +164,7 @@ if __name__ == "__main__":
             user_input = st.text_input("Enter Password", type="password")
             if user_input == st.secrets["password"]:
                 st.session_state.auth = True
+                st.success("Access granted")
                 st.rerun() # Reruns the script to clear the login UI
             elif user_input:
                 st.error("Access denied")
@@ -171,12 +172,9 @@ if __name__ == "__main__":
 
     # --- ACTUAL APP CONTENT ---
     # This only runs if st.session_state.auth is True
-    st.success("Access granted")
     # (Your plotting logic here)
     col1, col2, col3 = st.columns([1, 1, 1])
 
-    with col2:
-        st.success("Access granted")
     today = datetime.now().strftime("%Y-%m-%d")
 
     setonix_raw_cpu, setonix_percent_cpu, setonix_raw_gpu, setonix_percent_gpu = (
