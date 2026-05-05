@@ -141,9 +141,9 @@ def plot(
     )
 
     ax.set_title(
-        f"{cluster} Usage on {today} \n as a percent of overaell used,\n exceeding allocation by {percent_exceeding:.1f}%"
+        f"{cluster} Usage on {today} \n as a percent of overall used,\n exceeding allocation by {percent_exceeding:.1f}%"
         if percent_exceeding > 0
-        else f"{cluster} Usage on {today} \n as a percent of overaell used"
+        else f"{cluster} Usage on {today} \n as a percent of overall used"
     )
 
 
@@ -206,3 +206,7 @@ if __name__ == "__main__":
     _, mid_col, _ = st.columns([1, 6, 1])
     with mid_col:
         st.image(buf.getvalue(), use_container_width=True)
+    st.markdown("---")
+    st.markdown(
+    "**Author: Frank, Emily**",
+    )
