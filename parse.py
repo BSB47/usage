@@ -138,6 +138,7 @@ def plot(
         [f"{k}: {v:.1f}%" for k, v in zip(data_raw.keys(), data_percent.values())],
         bbox_to_anchor=(0.3, -1, 0.5, 1),
         title="As a percent of total allocation",
+        frameon=False,
     )
 
     ax.set_title(
