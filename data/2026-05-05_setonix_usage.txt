@@ -1,0 +1,7 @@
+Compute Information
+-------------------
+          Project ID     Allocation          Usage     % used       High     % high
+          ----------     ----------          -----     ------       ----     ------
+There do not appear to be cpu hours available to project pawsey0420-gpu
+
+Please contact help@pawsey.org.au if you believe the cpu info to be in error.
