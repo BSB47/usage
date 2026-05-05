@@ -182,7 +182,7 @@ if __name__ == "__main__":
     )
     gadi_raw, gadi_percent = parse_gadi_usage(f"data/{today}_gadi_usage.txt", today)
 
-    fig, axs = plt.subplots(1, 3, figsize=(16, 10.8), dpi=800)
+    fig, axs = plt.subplots(1, 3, figsize=(16, 6), dpi=300)
 
     plot(gadi_raw, gadi_percent, today, "Gadi", axs[0], threshold=threshold)
     plot(
@@ -201,6 +201,7 @@ if __name__ == "__main__":
         axs[2],
         threshold=threshold,
     )
+    fig.tight_layout(pad=0)
     buf = io.StringIO()
     fig.savefig(buf, format="svg")
-    st.image(buf.getvalue())
+    st.image(buf.getvalue(), use_container_width=True)
