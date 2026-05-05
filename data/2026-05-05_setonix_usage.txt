@@ -2,6 +2,18 @@ Compute Information
 -------------------
           Project ID     Allocation          Usage     % used       High     % high
           ----------     ----------          -----     ------       ----     ------
-There do not appear to be cpu hours available to project pawsey0420-gpu
-
-Please contact help@pawsey.org.au if you believe the cpu info to be in error.
+          pawsey0420        1875000        3719343      198.4          0        0.0
+          --ecameron                             0        0.0          0        0.0
+             --yliu6                             2        0.0          0        0.0
+        --rmunaweera                         12358        0.7          0        0.0
+              --yhao                        260063       13.9          0        0.0
+               --yfu                          1618        0.1          0        0.0
+             --billy                        508369       27.1          0        0.0
+             --aks19                       2936931      156.6          0        0.0
+      pawsey0420-gpu        1600000        1289196       80.6          0        0.0
+        --rmunaweera                           460        0.0          0        0.0
+             --aks19                        774727       48.4          0        0.0
+             --yliu6                        393600       24.6          0        0.0
+          --ecameron                         65609        4.1          0        0.0
+              --yhao                         54498        3.4          0        0.0
+           --psutton                           301        0.0          0        0.0
