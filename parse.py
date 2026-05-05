@@ -154,42 +154,55 @@ if __name__ == "__main__":
     login_placeholder = st.empty()
     threshold = st.sidebar.slider("Hide slices below %", 0, 20, 5)
 
+    if 'auth' not in st.session_state:
+        st.session_state.auth = False
+
+    if not st.session_state.auth:
+        # --- LOGIN UI ---
+        _, col2, _ = st.columns([1, 1, 1])
+        with col2:
+            user_input = st.text_input("Enter Password", type="password")
+            if user_input == st.secrets["password"]:
+                st.session_state.auth = True
+                st.rerun() # Reruns the script to clear the login UI
+            elif user_input:
+                st.error("Access denied")
+        st.stop() # Prevents anything below from running until auth is True
+
+    # --- ACTUAL APP CONTENT ---
+    # This only runs if st.session_state.auth is True
+    st.success("Access granted")
+    # (Your plotting logic here)
     col1, col2, col3 = st.columns([1, 1, 1])
 
     with col2:
-        user_input = st.text_input("Enter Password", type="password", width=300)
-    if user_input == st.secrets["password"]:
         st.success("Access granted")
-        today = datetime.now().strftime("%Y-%m-%d")
+    today = datetime.now().strftime("%Y-%m-%d")
 
-        setonix_raw_cpu, setonix_percent_cpu, setonix_raw_gpu, setonix_percent_gpu = (
-            parse_setonix_usage(f"data/{today}_setonix_usage.txt", today)
-        )
-        gadi_raw, gadi_percent = parse_gadi_usage(f"data/{today}_gadi_usage.txt", today)
+    setonix_raw_cpu, setonix_percent_cpu, setonix_raw_gpu, setonix_percent_gpu = (
+        parse_setonix_usage(f"data/{today}_setonix_usage.txt", today)
+    )
+    gadi_raw, gadi_percent = parse_gadi_usage(f"data/{today}_gadi_usage.txt", today)
 
-        fig, axs = plt.subplots(1, 3, figsize=(19.2, 10.8), dpi=800)
+    fig, axs = plt.subplots(1, 3, figsize=(19.2, 10.8), dpi=800)
 
-        plot(gadi_raw, gadi_percent, today, "Gadi", axs[0], threshold=threshold)
-        plot(
-            setonix_raw_cpu,
-            setonix_percent_cpu,
-            today,
-            "Setonix CPU",
-            axs[1],
-            threshold=threshold,
-        )
-        plot(
-            setonix_raw_gpu,
-            setonix_percent_gpu,
-            today,
-            "Setonix GPU",
-            axs[2],
-            threshold=threshold,
-        )
-        buf = io.StringIO()
-        fig.savefig(buf, format="svg")
-        st.image(buf.getvalue(), use_container_width=True)
-    else:
-        if user_input:
-            st.error("Access denied")
-        st.stop()
+    plot(gadi_raw, gadi_percent, today, "Gadi", axs[0], threshold=threshold)
+    plot(
+        setonix_raw_cpu,
+        setonix_percent_cpu,
+        today,
+        "Setonix CPU",
+        axs[1],
+        threshold=threshold,
+    )
+    plot(
+        setonix_raw_gpu,
+        setonix_percent_gpu,
+        today,
+        "Setonix GPU",
+        axs[2],
+        threshold=threshold,
+    )
+    buf = io.StringIO()
+    fig.savefig(buf, format="svg")
+    st.image(buf.getvalue(), use_container_width=True)
