@@ -1,3 +1,4 @@
+import io
 import re
 from datetime import datetime
 
@@ -182,7 +183,9 @@ if __name__ == "__main__":
             axs[2],
             threshold=threshold,
         )
-        st.pyplot(fig, clear_figure=True, format="svg")
+        buf = io.StringIO()
+        fig.savefig(buf, format="svg")
+        st.image(buf.getvalue(), use_container_width=True)
     else:
         if user_input:
             st.error("Access denied")
