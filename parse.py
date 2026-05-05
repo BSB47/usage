@@ -150,7 +150,7 @@ def plot(
 if __name__ == "__main__":
 
     st.set_page_config(layout="wide")
-    st.title("Omara lab supercomputer usage", text_alignment="center")
+    st.subheader("Omara lab supercomputer usage", text_alignment="center")
     login_placeholder = st.empty()
     threshold = st.sidebar.slider("Hide slices below %", 0, 20, 5)
 
