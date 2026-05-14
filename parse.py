@@ -194,11 +194,9 @@ if __name__ == "__main__":
         except Exception as e:
             if isinstance(e, IndexError):
                 with mid_col:
-                    st.error(
-                        f"Caught IndexError: {e} when parsing data for {date}. \
+                    st.error(f"Caught IndexError: {e} when parsing data for {date}. \
                         Supercomputers may be down for maintenance.\
-                        Is it the first Tuesday of the month? If not, contact Frank"
-                    )
+                        Is it the first Tuesday of the month? If not, contact Frank")
         rewind += 1
 
     fig, axs = plt.subplots(1, 3, figsize=(18, 6), dpi=200)
@@ -225,6 +223,6 @@ if __name__ == "__main__":
     with mid_col:
         st.image(buf.getvalue(), use_container_width=True)
         st.markdown(
-            "Authors: Frank, Emily\n, Rendering data from {date} (most recent available)"
+            f"Authors: Frank, Emily\n, Rendering data from {date} (most recent available)"
         )
     st.stop()
