@@ -194,9 +194,14 @@ if __name__ == "__main__":
         except Exception as e:
             if isinstance(e, IndexError):
                 with mid_col:
-                    st.error(f"Caught IndexError: {e} when parsing data for {date}. \
+                    st.error(
+                        f"Contents of the data file for {date} is empty or corrupted. \
                         Supercomputers may be down for maintenance.\
-                        Is it the first Tuesday of the month? If not, contact Frank")
+                        Is it the first Tuesday of the month? If not, contact Frank"
+                    )
+            elif isinstance(e, FileNotFoundError):
+                with mid_col:
+                    st.warning(f"No data found for {date}. Trying previous day...")
         rewind += 1
 
     fig, axs = plt.subplots(1, 3, figsize=(18, 6), dpi=200)
