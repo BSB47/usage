@@ -1,12 +1,12 @@
 import io
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import matplotlib.pyplot as plt
 import streamlit as st
 
 
-def parse_setonix_usage(fn: str, time: str):
+def parse_setonix_usage(fn: str):
     allocation = {}
     used_cpu, used_gpu = {}, {}
     percentage_cpu, percentage_gpu = {}, {}
@@ -62,7 +62,7 @@ def parse_setonix_usage(fn: str, time: str):
     return data_raw_cpu, data_percent_cpu, data_raw_gpu, data_percent_gpu
 
 
-def parse_gadi_usage(fn: str, time: str):
+def parse_gadi_usage(fn: str):
     unit_map = {"SU": 1, "KSU": 1000, "MSU": 1000000}
 
     total = []
@@ -176,28 +176,38 @@ if __name__ == "__main__":
     # (Your plotting logic here)
     col1, col2, col3 = st.columns([1, 1, 1])
 
-    today = datetime.now().strftime("%Y-%m-%d")
-
     _, mid_col, _ = st.columns([1, 6, 1])
-    try:
-        setonix_raw_cpu, setonix_percent_cpu, setonix_raw_gpu, setonix_percent_gpu = (
-            parse_setonix_usage(f"data/{today}_setonix_usage.txt", today)
-        )
-        gadi_raw, gadi_percent = parse_gadi_usage(f"data/{today}_gadi_usage.txt", today)
-    except IndexError as e:
-        with mid_col:
-            st.error(
-                f"Caught IndexError: {e}. Supercomputers are probably down for maintenance. Is it the first Tuesday of the month? If not, contact Frank"
-            )
-        st.stop()
+
+    date = str()
+    rewind = 0
+    while True:
+        date = (datetime.now() - timedelta(days=rewind)).strftime("%Y-%m-%d")
+        try:
+            (
+                setonix_raw_cpu,
+                setonix_percent_cpu,
+                setonix_raw_gpu,
+                setonix_percent_gpu,
+            ) = parse_setonix_usage(f"data/{date}_setonix_usage.txt")
+            gadi_raw, gadi_percent = parse_gadi_usage(f"data/{date}_gadi_usage.txt")
+            break
+        except Exception as e:
+            if isinstance(e, IndexError):
+                with mid_col:
+                    st.error(
+                        f"Caught IndexError: {e} when parsing data for {date}. \
+                        Supercomputers may be down for maintenance.\
+                        Is it the first Tuesday of the month? If not, contact Frank"
+                    )
+        rewind += 1
 
     fig, axs = plt.subplots(1, 3, figsize=(18, 6), dpi=200)
 
-    plot(gadi_raw, gadi_percent, today, "Gadi", axs[0], threshold=threshold)
+    plot(gadi_raw, gadi_percent, date, "Gadi", axs[0], threshold=threshold)
     plot(
         setonix_raw_cpu,
         setonix_percent_cpu,
-        today,
+        date,
         "Setonix CPU",
         axs[1],
         threshold=threshold,
@@ -205,7 +215,7 @@ if __name__ == "__main__":
     plot(
         setonix_raw_gpu,
         setonix_percent_gpu,
-        today,
+        date,
         "Setonix GPU",
         axs[2],
         threshold=threshold,
@@ -215,5 +225,6 @@ if __name__ == "__main__":
     with mid_col:
         st.image(buf.getvalue(), use_container_width=True)
         st.markdown(
-            "Authors: Frank, Emily",
+            "Authors: Frank, Emily\n, Rendering data from {date} (most recent available)"
         )
+    st.stop()
