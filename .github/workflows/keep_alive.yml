@@ -11,6 +11,15 @@ jobs:
   ping_app:
     runs-on: ubuntu-latest
     steps:
-      - name: Send a request to the Streamlit app
+      - name: Wake up Streamlit App
         run: |
-          curl -sIL https://omaralab-usage.streamlit.app/ | grep -E "^HTTP/"
+          # Give the app a firm nudge (this triggers the backend to start spinning up the container)
+          curl -s https://omaralab-usage.streamlit.app/ > response.html
+          
+          # Check if we got a valid response from the Streamlit hosting system
+          if grep -q "Streamlit" response.html || grep -q "root" response.html; then
+            echo "Successfully pinged the Streamlit router. App is waking up!"
+          else
+            echo "Warning: Unexpected response format."
+            cat response.html | head -n 10
+          fi
